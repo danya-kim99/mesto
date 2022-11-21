@@ -1,0 +1,8 @@
+.profile__info {
+  display: flex;
+  margin: auto auto auto 30px;
+  color: #fff;
+  max-width: 336px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

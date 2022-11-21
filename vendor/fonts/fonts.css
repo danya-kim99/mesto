@@ -24,3 +24,12 @@
     url(./Inter/Inter-Bold.woff) format("woff");
   font-weight: bold;
 }
+
+@font-face {
+  font-family: "Inter";
+  src:
+    local("Inter Light"),
+    url(./Inter/Inter-Light.woff) format("woff2"),
+    url(./Inter/Inter-Light.woff2) format("woff");
+  font-weight: 400;
+}
