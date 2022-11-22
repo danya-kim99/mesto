@@ -25,3 +25,13 @@
   }
 }
 
+@media screen and (max-width: 320px){
+  .popup__container {
+    width: 282px;
+    height: 322px;
+    left: 69%;
+    top: 13%;
+    padding: 22px;
+  }
+}
+
