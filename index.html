@@ -16,7 +16,7 @@
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="./images/сousteau.jpg" alt="">
+        <img class="profile__avatar" src="./images/cousteau.png" alt="">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <div class="profile__edit-button"></div>
@@ -61,13 +61,15 @@
       <p class="footer__copyright">© 2022. Mesto Russia</p>
     </footer>
     <div class="popup">
-      <form class="popup__container">
-        <div class="popup__close-button"></div>
+      <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
+        <div class="popup__close-button"></div>
+        <form class="popup__form">
         <input class="popup__input" type="text">
         <input class="popup__input" type="text">
-        <input type="button" value="Сохранить" class="popup__submit">
+        <input type="submit" value="Сохранить" class="popup__submit">
       </form>
+    </div>
     </div>
   </div>
   <script src='./script.js'></script>
