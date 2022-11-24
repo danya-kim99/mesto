@@ -1,5 +1,5 @@
 .element {
-  height: 361px;
+  min-height: 361px;
   width: 282px;
   display: flex;
   flex-wrap: wrap;

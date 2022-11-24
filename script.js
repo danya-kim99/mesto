@@ -4,8 +4,8 @@ let close_button = document.querySelector('.popup__close-button');
 
 function open_popup() {
   popup.classList.add('popup_opened');
-  document.querySelector('.popup__input:first-of-type').value = document.querySelector('.profile__name').textContent;
-  document.querySelector('.popup__input:nth-of-type(2)').value = document.querySelector('.profile__profession').textContent;
+  document.querySelector('.popup__input_name').value = document.querySelector('.profile__name').textContent;
+  document.querySelector('.popup__input_profession').value = document.querySelector('.profile__profession').textContent;
 }
 
 function close_popup() {
@@ -23,10 +23,9 @@ let formElement = document.querySelector('.popup__container');
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
-  document.querySelector('.profile__name').textContent = document.querySelector('.popup__input:first-of-type').value;
-  document.querySelector('.profile__profession').textContent = document.querySelector('.popup__input:nth-of-type(2)').value;
+  document.querySelector('.profile__name').textContent = document.querySelector('.popup__input_name').value;
+  document.querySelector('.profile__profession').textContent = document.querySelector('.popup__input_profession').value;
   popup.classList.remove('popup_opened');
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
-

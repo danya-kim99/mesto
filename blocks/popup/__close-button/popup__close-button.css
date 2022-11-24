@@ -6,16 +6,18 @@
   top: -12%;
   z-index: 2;
   background-image: url(../../../images/close-icon.svg);
+  border: none;
   background-repeat: no-repeat;
   background-size: contain;
+  background-color: transparent;
 }
 
-.popup__close-button:hover{
+.popup__close-button:hover {
   opacity: 60%;
   cursor: pointer;
 }
 
-@media screen and (max-width: 587px){
+@media screen and (max-width: 587px) {
   .popup__close-button {
     right: 0;
     top: -12%;
