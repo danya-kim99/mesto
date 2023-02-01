@@ -1,37 +1,66 @@
-let edit_button = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let close_button = document.querySelector('.popup__close-button');
+//общие функции
+function openPopup(popupType) {
+  popupType.classList.add('popup_opened');
+}
 
-function open_popup() {
-  popup.classList.add('popup_opened');
+function closePopup(popupType) {
+  popupType.classList.remove('popup_opened');
+}
+
+//функционал поп-апа профиля
+let editButton = document.querySelector('.profile__edit-button');
+let closeButtonProfile = document.querySelector('.popup__close-button_profile');
+let popupProfile = document.querySelector('.popup_type_profile');
+
+function openPopupProfile() {
+  openPopup(popupProfile);
   document.querySelector('.popup__input_type_name').value = document.querySelector('.profile__name').textContent;
   document.querySelector('.popup__input_type_profession').value = document.querySelector('.profile__profession').textContent;
 }
 
-function close_popup() {
-  popup.classList.remove('popup_opened');
+function closePopupProfile() {
+  closePopup(popupProfile);
 }
 
+editButton.addEventListener('click', openPopupProfile);
+closeButtonProfile.addEventListener('click', closePopupProfile);
 
-
-edit_button.addEventListener('click', open_popup);
-close_button.addEventListener('click', close_popup);
-
-let submit_button = document.querySelector('.popup__submit');
+let submitButton = document.querySelector('.popup__submit');
 let formElement = document.querySelector('.popup__container');
-
 
 function formSubmitHandler(evt) {
   evt.preventDefault();
   document.querySelector('.profile__name').textContent = document.querySelector('.popup__input_type_name').value;
   document.querySelector('.profile__profession').textContent = document.querySelector('.popup__input_type_profession').value;
-  popup.classList.remove('popup_opened');
+  popupProfile.classList.remove('popup_opened');
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
 
+//функционал поп-апа с добавлением места
+let addButton = document.querySelector('.profile__add-button')
+let popupPlace = document.querySelector('.popup_type_place');
+let closeButtonPlace = document.querySelector('.popup__close-button_place');
+
+function openPopupPlace() {
+  openPopup(popupPlace);
+  document.querySelector('.popup__input_type_name').value = document.querySelector('.profile__name').textContent;
+  document.querySelector('.popup__input_type_profession').value = document.querySelector('.profile__profession').textContent;
+}
+
+function closePopupPlace() {
+  closePopup(popupPlace);
+}
+
+addButton.addEventListener('click', openPopupPlace);
+closeButtonPlace.addEventListener('click', closePopupPlace);
+
+
+
+//селектор для контейнера с карточками
 const cardContainer = document.querySelector('.elements');
 
+//функция для добавления карточек
 function addCard(name, image) {
   const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
@@ -42,6 +71,7 @@ function addCard(name, image) {
   cardContainer.append(cardElement);
 }
 
+//массив для карточек "из коробки"
 const initialCards = [
   {
     name: 'Архыз',
@@ -69,6 +99,7 @@ const initialCards = [
   }
 ];
 
+//добавление карточек "из коробки"
 initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
