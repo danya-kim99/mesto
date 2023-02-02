@@ -1,15 +1,17 @@
-.element__like {
-  width: 22px;
+.element__trash {
+  position: absolute;
+  width: 18px;
   height: 19px;
-  background-image: url(../../../images/heart.svg);
+  right: 20px;
+  top: 20px;
+  background-image: url(../../../images/trash.svg);
   background-repeat: no-repeat;
   background-position: center;
-  padding: 5% 11%;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
 
-.element__like:hover {
+.element__trash:hover {
   opacity: 50%;
 }

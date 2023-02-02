@@ -10,6 +10,7 @@
   vertical-align: text-bottom;
   color: #fff;
   font-size: 18px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 587px) {
