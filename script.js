@@ -8,9 +8,9 @@ function closePopup(popupType) {
 }
 
 //функционал поп-апа профиля
-let editButton = document.querySelector('.profile__edit-button');
-let closeButtonProfile = document.querySelector('.popup__close-button_profile');
-let popupProfile = document.querySelector('.popup_type_profile');
+const editButton = document.querySelector('.profile__edit-button');
+const closeButtonProfile = document.querySelector('.popup__close-button_profile');
+const popupProfile = document.querySelector('.popup_type_profile');
 
 function openPopupProfile() {
   openPopup(popupProfile);
@@ -25,7 +25,7 @@ function closePopupProfile() {
 editButton.addEventListener('click', openPopupProfile);
 closeButtonProfile.addEventListener('click', closePopupProfile);
 
-let profileFormElement = document.querySelector('.popup__container_profile');
+const profileFormElement = document.querySelector('.popup__container_profile');
 
 function profileFormSubmitHandler(evt) {
   evt.preventDefault();
@@ -38,9 +38,9 @@ profileFormElement.addEventListener('submit', profileFormSubmitHandler);
 
 //функционал поп-апа с добавлением места
 
-let addButton = document.querySelector('.profile__add-button')
-let popupPlace = document.querySelector('.popup_type_place');
-let closeButtonPlace = document.querySelector('.popup__close-button_place');
+const addButton = document.querySelector('.profile__add-button')
+const popupPlace = document.querySelector('.popup_type_place');
+const closeButtonPlace = document.querySelector('.popup__close-button_place');
 
 function openPopupPlace() {
   openPopup(popupPlace);
@@ -57,14 +57,14 @@ closeButtonPlace.addEventListener('click', closePopupPlace);
 
 //фунционал добавления карточки с местом
 
-let placeFormElement = document.querySelector('.popup__container_place');
+const placeFormElement = document.querySelector('.popup__container_place');
 
 function placeFormSubmitHandler(evt) {
   evt.preventDefault();
-  let nameInput = document.querySelector('.popup__input_type_title');
-  let imageInput = document.querySelector('.popup__input_type_link');
-  let cardName = nameInput.value;
-  let cardImage = imageInput.value;
+  const nameInput = document.querySelector('.popup__input_type_title');
+  const imageInput = document.querySelector('.popup__input_type_link');
+  const cardName = nameInput.value;
+  const cardImage = imageInput.value;
   addCard(cardName, cardImage);
   nameInput.value = '';
   imageInput.value = '';
@@ -73,10 +73,9 @@ function placeFormSubmitHandler(evt) {
 
 placeFormElement.addEventListener('submit', placeFormSubmitHandler);
 
-//селектор для контейнера с карточками
 const cardContainer = document.querySelector('.elements');
-
 const popupImage = document.querySelector('.popup_type_image');
+
 //функция для добавления карточек
 function addCard(name, image) {
   const cardTemplate = document.querySelector('#card').content;
@@ -110,14 +109,14 @@ function addCard(name, image) {
     openPopup(popupImage);
   });
 }
+
+//закрытие попапа с картинкой
 const closeButtonImage = document.querySelector('.popup__close-button_image');
 closeButtonImage.addEventListener('click', closePopupImage);
 
 function closePopupImage() {
   closePopup(popupImage);
 }
-
-
 
 //массив для карточек "из коробки"
 const initialCards = [{
@@ -150,6 +149,3 @@ const initialCards = [{
 initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
-
-
-//лайки
