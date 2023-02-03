@@ -25,14 +25,13 @@ function openPopup(popupType) {
 function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
 }
-
+//закрытие поп-апов
 const closeButtons = document.querySelectorAll('.popup__close-button');
 
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
-
 
 editButton.addEventListener('click', openPopupProfile);
 
@@ -42,10 +41,6 @@ function openPopupProfile() {
   openPopup(popupProfile);
   profileInputName.value = profileName.textContent;
   profileInputProfession.value = profileProfession.textContent;
-}
-
-function closePopupProfile() {
-  closePopup(popupProfile);
 }
 
 function handleProfileFormSubmit(evt) {
