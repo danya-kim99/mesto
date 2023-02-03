@@ -1,6 +1,6 @@
 .element {
   position: relative;
-  max-height: 361px;
+  height: 361px;
   width: 282px;
   display: flex;
   flex-wrap: wrap;
