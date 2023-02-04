@@ -47,7 +47,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = profileInputName.value;
   profileProfession.textContent = profileInputProfession.value;
-  popupProfile.classList.remove('popup_opened');
+  closePopup(popupProfile);
 }
 
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
