@@ -160,8 +160,3 @@ initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
 
-document.addEventListener("click", evt => console.log(evt.target))
-
-document.addEventListener('keydown', function (evt) {
-  console.log(evt.key)
-});
