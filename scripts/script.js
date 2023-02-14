@@ -36,7 +36,7 @@ closeButtons.forEach((button) => {
       closePopup(popup)
     };
   });
-  document.addEventListener('click', function (evt) {
+  document.addEventListener('mousedown', function (evt) {
     if (evt.target === popup) {
       closePopup(popup)
     };
