@@ -26,11 +26,16 @@ function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
 }
 //закрытие поп-апов
-const closeButtons = document.querySelectorAll('.popup__close-button');
+const closeButtons = document.querySelectorAll('.popup__close-button', '.popup_opened');
 
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
+  document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        closePopup(popup)
+      };
+    });
 });
 
 editButton.addEventListener('click', openPopupProfile);
@@ -147,3 +152,9 @@ const initialCards = [{
 initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
+
+document.addEventListener("click", evt => console.log(evt.target))
+
+document.addEventListener('keydown', function (evt) {
+    console.log(evt.key)
+});

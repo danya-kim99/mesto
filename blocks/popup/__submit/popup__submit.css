@@ -13,6 +13,20 @@
   cursor: pointer;
 }
 
+.popup__submit:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.popup__submit:disabled {
+  background-color: #fff;
+  cursor: default;
+  border: 1px solid #000000;
+  color: #000;
+  opacity: 0.2;
+}
+
+
+
 @media screen and (max-width: 587px) {
   .popup__submit {
     width: 238px;
