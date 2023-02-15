@@ -165,4 +165,3 @@ initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
 
-document.addEventListener('click', (evt) => console.log(evt.target))
