@@ -15,34 +15,40 @@ const cardContainer = document.querySelector('.elements');
 const popupImage = document.querySelector('.popup_type_image');
 const nameInput = document.querySelector('.popup__input_type_title');
 const imageInput = document.querySelector('.popup__input_type_link');
+const cardTemplate = document.querySelector('#card').content;
 
 
 //общие функции
 function openPopup(popupType) {
   popupType.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 //закрытие поп-апов
-const closeButtons = document.querySelectorAll('.popup__close-button');
 
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      closePopup(popup)
-    };
-  });
-  document.addEventListener('mousedown', function (evt) {
-    if (evt.target === popup) {
-      closePopup(popup)
-    };
-  });
-});
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup)
+  }
+}
 
+const popups = document.querySelectorAll('.popup')
+
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close-button')) {
+          closePopup(popup)
+        }
+    })
+})
 
 
 editButton.addEventListener('click', openPopupProfile);
@@ -90,7 +96,6 @@ placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 //функция создания карточки
 function createCard(name, image) {
-  const cardTemplate = document.querySelector('#card').content;
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const elementImage = cardElement.querySelector('.element__image');
   const elementName = cardElement.querySelector('.element__title');
@@ -160,3 +165,4 @@ initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
 
+document.addEventListener('click', (evt) => console.log(evt.target))
