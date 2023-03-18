@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 //константы
 const editButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_type_profile');
@@ -15,7 +18,6 @@ const cardContainer = document.querySelector('.elements');
 const popupImage = document.querySelector('.popup_type_image');
 const nameInput = document.querySelector('.popup__input_type_title');
 const imageInput = document.querySelector('.popup__input_type_link');
-const cardTemplate = document.querySelector('#card').content;
 
 
 //общие функции
@@ -96,24 +98,8 @@ placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 //функция создания карточки
 function createCard(name, image) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const cardElement = new Card(name, image).createCard();
   const elementImage = cardElement.querySelector('.element__image');
-  const elementName = cardElement.querySelector('.element__title');
-  elementImage.src = image;
-  elementImage.alt = name;
-  elementName.textContent = name;
-
-  const likeButton = cardElement.querySelector('.element__like');
-  likeButton.addEventListener('click', function (evt) {
-    const like = evt.target;
-    like.classList.toggle('element__like_pressed');
-  });
-
-  const trashButton = cardElement.querySelector('.element__trash');
-  trashButton.addEventListener('click', function (evt) {
-    const trash = evt.target;
-    trash.closest('.element').remove();
-  });
 
   elementImage.addEventListener('click', function (evt) {
     const target = evt.target;
