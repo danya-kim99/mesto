@@ -95,22 +95,17 @@ function handlePlaceFormSubmit(evt) {
 
 placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
+const openPopupImage = () => {
+  openPopup(popupImage);
+}
 
 //функция создания карточки
 function createCard(name, image) {
-  const cardElement = new Card(name, image).createCard();
-  const elementImage = cardElement.querySelector('.element__image');
-
-  elementImage.addEventListener('click', function (evt) {
-    const target = evt.target;
-    increasedImage.src = target.src;
-    increasedImage.alt = name;
-    titleImage.textContent = name;
-    openPopup(popupImage);
-  });
-
+  const cardElement = new Card(name, image, openPopupImage).createCard();
   return cardElement
 }
+
+
 
 //функция для добавления карточек
 function addCard(name, image) {

@@ -1,7 +1,8 @@
 export default class Card {
-  constructor(name, image) {
-    this.name = name;
-    this.image = image;
+  constructor(name, image, onImageClick) {
+    this._name = name;
+    this._image = image;
+    this._onImageClick = onImageClick;
   }
 
   _getTemplate() {
@@ -19,9 +20,9 @@ export default class Card {
 
     this._elementImage = this._element.querySelector('.element__image');
     this._elementName = this._element.querySelector('.element__title');
-    this._elementImage.src = this.image;
-    this._elementImage.alt = this.name;
-    this._elementName.textContent = this.name;
+    this._elementImage.src = this._image;
+    this._elementImage.alt = this._name;
+    this._elementName.textContent = this._name;
 
     return this._element
   }
@@ -38,10 +39,10 @@ export default class Card {
   _handleImageClick() {
     const increasedImage = document.querySelector('.popup__image');
     const titleImage = document.querySelector('.popup__title_image');
-    increasedImage.src = this.image;
-    increasedImage.alt = this.name;
-    titleImage.textContent = this.name;
-
+    increasedImage.src = this._image;
+    increasedImage.alt = this._name;
+    titleImage.textContent = this._name;
+    this._onImageClick()
   }
 
   _setEventListeners() {
@@ -53,6 +54,8 @@ export default class Card {
       this._handleTrashClick()
     });
 
-
+    this._element.querySelector('.element__image').addEventListener('click', () => {
+      this._handleImageClick()
+    });
   }
 }
