@@ -45,7 +45,7 @@ export default class FormValidator {
 
     formSelector.addEventListener('reset', () => {
       setTimeout(() => {
-        this._toggleButtonState(inputList, submitButton).bind(this), 0
+        this._toggleButtonState(inputList, submitButton), 0
       })
     })
 
