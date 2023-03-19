@@ -85,7 +85,6 @@ popups.forEach((popup) => {
 })
 
 //функционал поп-апа профиля
-
 function openPopupProfile() {
   openPopup(popupProfile);
   profileInputName.value = profileName.textContent;
@@ -104,7 +103,6 @@ function handleProfileFormSubmit(evt) {
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
 //функционал поп-апа с добавлением места
-
 function openPopupPlace() {
   openPopup(popupPlace);
 }
@@ -112,7 +110,6 @@ function openPopupPlace() {
 addButton.addEventListener('click', openPopupPlace);
 
 //фунционал добавления карточки с местом
-
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
   const cardName = nameInput.valuehandlePlaceFormSubmit;
@@ -125,7 +122,6 @@ function handlePlaceFormSubmit(evt) {
 placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 //функционал открытия изображение после клика по карточке
-
 const openPopupImage = () => {
   openPopup(popupImage);
 }
