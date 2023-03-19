@@ -11,13 +11,21 @@ const profileProfession = document.querySelector('.profile__profession');
 const profileFormElement = document.querySelector('.popup__container_profile');
 const addButton = document.querySelector('.profile__add-button');
 const popupPlace = document.querySelector('.popup_type_place');
-const increasedImage = document.querySelector('.popup__image');
-const titleImage = document.querySelector('.popup__title_image');
 const placeFormElement = document.querySelector('.popup__container_place');
 const cardContainer = document.querySelector('.elements');
 const popupImage = document.querySelector('.popup_type_image');
 const nameInput = document.querySelector('.popup__input_type_title');
 const imageInput = document.querySelector('.popup__input_type_link');
+const profileForm = document.querySelector('.popup__container_profile .popup__form');
+const placeForm = document.querySelector('.popup__container_place .popup__form');
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inputErrorClass: 'popup__input_type_error'
+};
+const profileFormValidator = new FormValidator(validationConfig, profileForm);
+const cardFormValidator = new FormValidator(validationConfig, placeForm);
 
 
 //общие функции
@@ -99,12 +107,18 @@ const openPopupImage = () => {
   openPopup(popupImage);
 }
 
+
+
+
+
+
+
+
 //функция создания карточки
 function createCard(name, image) {
   const cardElement = new Card(name, image, openPopupImage).createCard();
   return cardElement
 }
-
 
 
 //функция для добавления карточек
@@ -146,3 +160,6 @@ initialCards.forEach(function (item) {
   addCard(item.name, item.link)
 })
 
+
+profileFormValidator.enableValidation()
+cardFormValidator.enableValidation()
