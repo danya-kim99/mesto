@@ -3,6 +3,11 @@ export default class Card {
     this._name = name;
     this._image = image;
     this._onImageClick = onImageClick;
+    this._element = this._getTemplate();
+    this._elementLikeButton = this._element.querySelector('.element__like');
+    this._elementTrashButton = this._element.querySelector('.element__trash');
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementName = this._element.querySelector('.element__title');
   }
 
   _getTemplate() {
@@ -15,11 +20,8 @@ export default class Card {
   }
 
   createCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
 
-    this._elementImage = this._element.querySelector('.element__image');
-    this._elementName = this._element.querySelector('.element__title');
     this._elementImage.src = this._image;
     this._elementImage.alt = this._name;
     this._elementName.textContent = this._name;
@@ -28,7 +30,7 @@ export default class Card {
   }
 
   _handleLikeClick() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_pressed');
+    this._elementLikeButton.classList.toggle('element__like_pressed');
   }
 
   _handleTrashClick() {
@@ -45,15 +47,15 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__like').addEventListener('click', () => {
+    this._elementLikeButton.addEventListener('click', () => {
       this._handleLikeClick()
     });
 
-    this._element.querySelector('.element__trash').addEventListener('click', () => {
+    this._elementTrashButton.addEventListener('click', () => {
       this._handleTrashClick()
     });
 
-    this._element.querySelector('.element__image').addEventListener('click', () => {
+    this._elementImage.addEventListener('click', () => {
       this._handleImageClick()
     });
   }
