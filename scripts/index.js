@@ -112,7 +112,7 @@ addButton.addEventListener('click', openPopupPlace);
 //фунционал добавления карточки с местом
 function handlePlaceFormSubmit(evt) {
   evt.preventDefault();
-  const cardName = nameInput.valuehandlePlaceFormSubmit;
+  const cardName = nameInput.value;
   const cardImage = imageInput.value;
   addCard(cardName, cardImage);
   evt.target.reset()
