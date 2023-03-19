@@ -28,7 +28,6 @@ export default class Card {
   }
 
   _handleLikeClick() {
-    console.log(this)
     this._element.querySelector('.element__like').classList.toggle('element__like_pressed');
   }
 
