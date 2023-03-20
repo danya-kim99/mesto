@@ -8,6 +8,8 @@ export default class Card {
     this._elementTrashButton = this._element.querySelector('.element__trash');
     this._elementImage = this._element.querySelector('.element__image');
     this._elementName = this._element.querySelector('.element__title');
+    this._increasedImage = document.querySelector('.popup__image');
+    this._titleImage = document.querySelector('.popup__title_image');
   }
 
   _getTemplate() {
@@ -38,11 +40,9 @@ export default class Card {
   }
 
   _handleImageClick() {
-    const increasedImage = document.querySelector('.popup__image');
-    const titleImage = document.querySelector('.popup__title_image');
-    increasedImage.src = this._image;
-    increasedImage.alt = this._name;
-    titleImage.textContent = this._name;
+    this._increasedImage.src = this._image;
+    this._increasedImage.alt = this._name;
+    this._titleImage.textContent = this._name;
     this._onImageClick()
   }
 
