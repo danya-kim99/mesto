@@ -19,14 +19,16 @@ const nameInput = document.querySelector('.popup__input_type_title');
 const imageInput = document.querySelector('.popup__input_type_link');
 const profileForm = document.querySelector('.popup__container_profile .popup__form');
 const placeForm = document.querySelector('.popup__container_place .popup__form');
+const increasedImage = document.querySelector('.popup__image');
+const titleImage = document.querySelector('.popup__title_image');
+const cardSelector = '#card';
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inputErrorClass: 'popup__input_type_error'
 };
-const profileFormValidator = new FormValidator(validationConfig, profileForm);
-const cardFormValidator = new FormValidator(validationConfig, placeForm);
+const formValidators = {};
 const initialCards = [{
   name: 'Архыз',
   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -86,6 +88,7 @@ popups.forEach((popup) => {
 
 //функционал поп-апа профиля
 function openPopupProfile() {
+  formValidators[ profileForm.getAttribute('name') ].resetValidation();
   openPopup(popupProfile);
   profileInputName.value = profileName.textContent;
   profileInputProfession.value = profileProfession.textContent;
@@ -104,6 +107,7 @@ profileFormElement.addEventListener('submit', handleProfileFormSubmit);
 
 //функционал поп-апа с добавлением места
 function openPopupPlace() {
+  formValidators[ placeForm.getAttribute('name') ].resetValidation();
   openPopup(popupPlace);
 }
 
@@ -122,13 +126,16 @@ function handlePlaceFormSubmit(evt) {
 placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 //функционал открытия изображение после клика по карточке
-const openPopupImage = () => {
+function handleImageClick(name, image) {
+  increasedImage.src = image;
+  increasedImage.alt = name;
+  titleImage.textContent = name;
   openPopup(popupImage);
 }
 
 //функция создания карточки
 function createCard(name, image) {
-  const cardElement = new Card(name, image, openPopupImage).createCard();
+  const cardElement = new Card(name, image, cardSelector, handleImageClick).createCard();
   return cardElement
 }
 
@@ -144,5 +151,15 @@ initialCards.forEach(function (item) {
 })
 
 //включение валидаций
-profileFormValidator.enableValidation()
-cardFormValidator.enableValidation()
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
