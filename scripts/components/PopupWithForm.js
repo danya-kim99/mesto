@@ -1,4 +1,6 @@
-import { formValidators } from "../utils/constants.js";
+import {
+  formValidators
+} from "../utils/constants.js";
 import Popup from "./Popup.js";
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handler) {
@@ -6,19 +8,19 @@ export default class PopupWithForm extends Popup {
     this._popupContainer = this._popup.querySelector('.popup__container');
     this._form = this._popup.querySelector('.popup__container .popup__form');
     this._handler = handler;
+    this._inputs = Array.from(this._form.querySelectorAll('.popup__input'));
   }
 
   open() {
     super.open()
   }
 
-  close(){
-    super.close()
-    formValidators[ this._form.getAttribute('name') ].resetValidation();
+  close() {
+    super.close();
+    formValidators[this._form.getAttribute('name')].resetValidation();
   }
 
-  _getInputValues(){
-    this._inputs = Array.from(this._form.querySelectorAll('.popup__input'));
+  _getInputValues() {
     const inputValues = {
       firstInputValue: this._inputs[0].value,
       secondInputValue: this._inputs[1].value,
@@ -26,7 +28,12 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  setEventListeners(){
+  setInputValues(values) {
+    this._inputs[0].value = values.name;
+    this._inputs[1].value = values.profession;
+  }
+
+  setEventListeners() {
     super.setEventListeners()
     this._popupContainer.addEventListener('submit', (evt) => {
       evt.preventDefault();

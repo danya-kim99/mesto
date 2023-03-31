@@ -1,16 +1,17 @@
 import {
   increasedImage,
   titleImage,
-  popupImageSelector,
-  popupProfileSelector,
-  popupPlaceSelector,
-  placeFormElement,
   editButton,
   addButton,
-  profileInfoSelectors
+  profileInfoSelectors,
+  containerSelector,
+  cardSelector
 } from "./constants.js";
-import Popup from "../components/Popup.js";
-import PopupWithForm from "../components/PopupWithForm.js";
+import {
+  imagePopup,
+  placePopup,
+  profilePopup
+} from "../index.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
@@ -19,42 +20,37 @@ export function handleImageClick(name, image) {
   increasedImage.src = image;
   increasedImage.alt = name;
   titleImage.textContent = name;
-  const currentPopup = new Popup(popupImageSelector);
-  currentPopup.open();
+  imagePopup.open();
 }
 
-function handlePlaceFormSubmit(inputValues) {
-  const fromFormCard = [
-    {
+export function handlePlaceFormSubmit(inputValues) {
+  const fromFormCard = [{
     name: inputValues.firstInputValue,
     link: inputValues.secondInputValue
-    }
-  ]
+  }]
   const newCard = new Section({
     items: fromFormCard,
     renderer: (item) => {
       const card = new Card(item, cardSelector, handleImageClick);
       const cardElement = card.createCard();
-      defaultCardList.addItem(cardElement)
+      newCard.addItem(cardElement)
     }
   }, containerSelector);
   newCard.renderItems();
 }
 
-function handleProfileFormSubmit(inputValues) {
-  const userContent = new UserInfo(profileInfoSelectors);
+const userContent = new UserInfo(profileInfoSelectors);
+
+export function handleProfileFormSubmit(inputValues) {
   userContent.setUserInfo(inputValues);
 }
 
-placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
-
 editButton.addEventListener('click', () => {
-  const currentPopup = new PopupWithForm(popupProfileSelector, handleProfileFormSubmit);
-
-  currentPopup.open();
+  const currentValues = userContent.getUserInfo();
+  profilePopup.setInputValues(currentValues);
+  profilePopup.open();
 });
 
 addButton.addEventListener('click', () => {
-  const currentPopup = new PopupWithForm(popupPlaceSelector, handlePlaceFormSubmit);
-  currentPopup.open();
+  placePopup.open();
 });
