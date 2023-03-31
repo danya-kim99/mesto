@@ -4,17 +4,16 @@ import {
   popupImageSelector,
   popupProfileSelector,
   popupPlaceSelector,
-  placeFormSelector,
   placeFormElement,
   editButton,
   addButton,
-  profileName,
-  profileProfession
+  profileInfoSelectors
 } from "./constants.js";
 import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
 
 export function handleImageClick(name, image) {
   increasedImage.src = image;
@@ -43,14 +42,15 @@ function handlePlaceFormSubmit(inputValues) {
 }
 
 function handleProfileFormSubmit(inputValues) {
-  profileName.textContent = inputValues.firstInputValue;
-  profileProfession.textContent = inputValues.secondInputValue;
+  const userContent = new UserInfo(profileInfoSelectors);
+  userContent.setUserInfo(inputValues);
 }
 
 placeFormElement.addEventListener('submit', handlePlaceFormSubmit);
 
 editButton.addEventListener('click', () => {
   const currentPopup = new PopupWithForm(popupProfileSelector, handleProfileFormSubmit);
+
   currentPopup.open();
 });
 

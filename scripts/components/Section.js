@@ -6,8 +6,6 @@ export default class Section {
   }
 
   addItem(item) {
-    console.log(item);
-    console.log(this._container);
     this._container.append(item);
   }
 
