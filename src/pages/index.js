@@ -1,13 +1,15 @@
-import Card from "./components/Card.js";
-import FormValidator from "./components/FormValidator.js";
-import Section from "./components/Section.js";
-import Popup from "./components/Popup.js";
-import PopupWithForm from "./components/PopupWithForm.js";
+import './index.css';
+
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 import {
   handleImageClick,
   handlePlaceFormSubmit,
   handleProfileFormSubmit
-} from "./utils/utils.js";
+} from "../utils/utils.js";
 import {
   cardSelector,
   validationConfig,
@@ -17,7 +19,7 @@ import {
   popupImageSelector,
   popupPlaceSelector,
   popupProfileSelector
-} from "./utils/constants.js"
+} from "../utils/constants.js"
 
 //поп-ап профиля
 export const profilePopup = new PopupWithForm(popupProfileSelector, handleProfileFormSubmit);
