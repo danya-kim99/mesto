@@ -38,7 +38,6 @@ export default class Card {
     this._element.remove();
   }
 
-
   _setEventListeners() {
     this._elementLikeButton.addEventListener('click', () => {
       this._handleLikeClick()

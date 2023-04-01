@@ -33,9 +33,9 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <button type="button" class="popup__close-button popup__close-button_profile"></button>
         <form class="popup__form" name="popup__form_type_profile">
-          <input id="name-input" class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40" placeholder="Имя" required>
+          <input id="name-input" name="name" class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40" placeholder="Имя" required>
           <span class="popup__input-error name-input-error"></span>
-          <input id="profession-input" class="popup__input popup__input_type_profession" type="text" minlength="2" maxlength="200" placeholder="Профессия" required>
+          <input id="profession-input" name="profession" class="popup__input popup__input_type_profession" type="text" minlength="2" maxlength="200" placeholder="Профессия" required>
           <span class="profession-input-error popup__input-error"></span>
           <input type="submit" disabled value="Сохранить" class="popup__submit">
         </form>
@@ -46,9 +46,9 @@
         <h2 class="popup__title">Новое место</h2>
         <button type="button" class="popup__close-button popup__close-button_place"></button>
         <form class="popup__form" name="popup__form_type_place">
-          <input id="title-input" class="popup__input popup__input_type_title" type="text" minlength="2" maxlength="30" placeholder="Название места" required>
+          <input id="title-input" name="name" class="popup__input popup__input_type_title" type="text" minlength="2" maxlength="30" placeholder="Название места" required>
           <span class="popup__input-error title-input-error"></span>
-          <input id="link-input" class="popup__input popup__input_type_link" type="url" placeholder="Ссылка на изображение" required>
+          <input id="link-input" name="link" class="popup__input popup__input_type_link" type="url" placeholder="Ссылка на изображение" required>
           <span class="popup__input-error link-input-error"></span>
           <input type="submit" value="Сохранить" class="popup__submit">
         </form>

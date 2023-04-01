@@ -12,7 +12,7 @@ export default class UserInfo {
   }
 
   setUserInfo(values) {
-    this._name.textContent = values.firstInputValue;
-    this._profession.textContent = values.secondInputValue;
+    this._name.textContent = values.name;
+    this._profession.textContent = values.profession;
   }
 }
