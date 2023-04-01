@@ -53,7 +53,6 @@ const enableValidation = (config) => {
   formList.forEach((formElement) => {
     const validator = new FormValidator(config, formElement)
     const formName = formElement.getAttribute('name')
-    console.log(formName)
 
     formValidators[formName] = validator;
     validator.enableValidation();
