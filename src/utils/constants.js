@@ -13,7 +13,8 @@ export const cardSelector = '#card';
 export const containerSelector = '.elements';
 export const profileInfoSelectors = {
   profileProfessionSelector: '.profile__profession',
-  profileNameSelector: '.profile__name'
+  profileNameSelector: '.profile__name',
+  profileAvatarSelector: '.profile__avatar'
 }
 export const validationConfig = {
   formSelector: '.popup__form',
@@ -21,6 +22,10 @@ export const validationConfig = {
   submitButtonSelector: '.popup__submit',
   inputErrorClass: 'popup__input_type_error'
 };
+export const apiOptions = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-63',
+  token: '1c1b2771-2095-401c-a8a4-03c7a594e43a'
+}
 export const formValidators = {};
 export const initialCards = [{
     name: 'Архыз',

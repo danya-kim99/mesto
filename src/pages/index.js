@@ -5,10 +5,11 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from '../components/PopupWithImage';
 import UserInfo from '../components/UserInfo';
+import Api from '../components/Api';
 import {
+  apiOptions,
   validationConfig,
   formValidators,
-  initialCards,
   editButton,
   addButton,
   profileInfoSelectors,
@@ -19,24 +20,37 @@ import {
   popupProfileSelector,
 } from "../utils/constants.js"
 
+//api
+const api = new Api(apiOptions)
 
-//отрисовка дефолтных карточек
-export const defaultCardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
+//информация о юзере
+const userContent = new UserInfo(profileInfoSelectors);
+
+//создание контейнера для карточек
+const defaultCardList = new Section(
+  function renderer (item) {
     const cardElement = createCard(item)
     defaultCardList.addItem(cardElement)
   }
-}, containerSelector)
-defaultCardList.renderItems();
+, containerSelector)
+
+//подгрузка данных из апи
+Promise.all([api.getInitialCards(), api.getProfileInfo()])
+  .then(([initialCards, profileInfo]) => {
+    defaultCardList.renderItems(initialCards);
+    userContent.setUserInfo(profileInfo)
+    userContent.setUserAvatar(profileInfo.avatar)
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
 
 //функция генерации карточки
 function createCard(data) {
   const card = new Card(data, cardSelector, handleImageClick);
   return card.createCard();
 }
-
-const userContent = new UserInfo(profileInfoSelectors);
 
 //хендлеры для кнопок
 function handleImageClick(name, image) {
@@ -48,9 +62,9 @@ function handlePlaceFormSubmit(inputValues) {
   defaultCardList.addItem(cardElement);
 }
 
-
 function handleProfileFormSubmit(inputValues) {
   userContent.setUserInfo(inputValues);
+  api.patchProfileInfo(inputValues)
 }
 
 //поп-ап профиля
