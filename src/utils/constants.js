@@ -6,6 +6,7 @@ export const popupPlaceSelector = '.popup_type_place';
 export const placeFormElement = document.querySelector('.popup__container_place');
 export const cardContainer = document.querySelector('.elements');
 export const popupImageSelector = '.popup_type_image'
+export const popupSubmitDeletionSelector = '.popup_type_submit-deletion'
 export const placeFormSelector = '.popup__container_place .popup__form';
 export const increasedImage = document.querySelector('.popup__image');
 export const titleImage = document.querySelector('.popup__title_image');

@@ -19,6 +19,65 @@ export default class Api {
       });
   }
 
+  postCard(values) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: values.name,
+        link: values.link
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+  }
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });;
+  }
+
+  putLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token
+      }
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });;
+  }
+
+  deleteLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    });
+  }
+
   getProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
         method: 'GET',
@@ -35,7 +94,7 @@ export default class Api {
   }
 
   patchProfileInfo(values) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -48,17 +107,5 @@ export default class Api {
     });
   }
 
-  postCard(values) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-63/users/me', {
-      method: 'PATCH',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: values.name,
-        link: values.profession
-      })
-    });
-  }
+
 }

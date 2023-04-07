@@ -14,10 +14,10 @@ export default class UserInfo {
 
   setUserInfo(values) {
     this._name.textContent = values.name;
-    this._profession.textContent = values.profession;
+    this._profession.textContent = values.about;
   }
 
   setUserAvatar(value) {
-    this._picture.src = value;
+    this._picture.style.backgroundImage = `url(${value})`;
   }
 }
