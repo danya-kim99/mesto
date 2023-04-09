@@ -19,7 +19,8 @@ import {
   popupImageSelector,
   popupPlaceSelector,
   popupProfileSelector,
-  popupSubmitDeletionSelector
+  popupSubmitDeletionSelector,
+  userId
 } from "../utils/constants.js"
 //api
 const api = new Api(apiOptions)
@@ -33,7 +34,7 @@ const defaultCardList = new Section(
     const cardElement = createCard(item)
     defaultCardList.addItem(cardElement)
 
-    if (item._id != '8a45fb2227e9e125cf962528') {
+    if (item._id != userId) {
       const elementTrashButton = cardElement.querySelector('.element__trash');
       cardElement.removeChild(elementTrashButton)
     }
@@ -53,7 +54,29 @@ Promise.all([api.getInitialCards(), api.getProfileInfo()])
 
 //функция генерации карточки
 function createCard(data) {
-  const card = new Card(data, cardSelector, handleImageClick, handleTrashClick);
+  const card = new Card(data, cardSelector, handleImageClick, handleTrashClick, function handleLikeClick() {
+    if(this.getLikedState(this.likes)) {
+      api.deleteLike(this._id)
+      .then((res) => {
+        this.likes = res.likes;
+        this.changeLikeAmount(res.likes);
+        this.changeLikeState(res.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    } else {
+      api.putLike(this._id)
+      .then((res) => {
+        this.likes = res.likes;
+        this.changeLikeAmount(res.likes);
+        this.changeLikeState(res.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  });
   return card.createCard();
 }
 

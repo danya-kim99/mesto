@@ -12,6 +12,7 @@ export const increasedImage = document.querySelector('.popup__image');
 export const titleImage = document.querySelector('.popup__title_image');
 export const cardSelector = '#card';
 export const containerSelector = '.elements';
+export const userId = '8a45fb2227e9e125cf962528';
 export const profileInfoSelectors = {
   profileProfessionSelector: '.profile__profession',
   profileNameSelector: '.profile__name',
