@@ -16,13 +16,14 @@
       <section class="profile">
         <button class="profile__avatar"></button>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name">Вы прекрасны</h1>
           <button type="button" class="profile__edit-button"></button>
-          <p class="profile__profession">Исследователь океана</p>
+          <p class="profile__profession">Загружаем...</p>
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements">
+        <div class="spinner"><i></i></div>
       </section>
     </main>
     <footer class="footer">
@@ -35,7 +36,7 @@
         <form class="popup__form" name="popup__form_type_profile">
           <input id="name-input" name="name" class="popup__input popup__input_type_name" type="text" minlength="2" maxlength="40" placeholder="Имя" required>
           <span class="popup__input-error name-input-error"></span>
-          <input id="profession-input" name="profession" class="popup__input popup__input_type_profession" type="text" minlength="2" maxlength="200" placeholder="Профессия" required>
+          <input id="profession-input" name="about" class="popup__input popup__input_type_profession" type="text" minlength="2" maxlength="200" placeholder="Профессия" required>
           <span class="profession-input-error popup__input-error"></span>
           <input type="submit" disabled value="Сохранить" class="popup__submit">
         </form>

@@ -108,7 +108,7 @@ export default class Api {
         },
         body: JSON.stringify({
           name: values.name,
-          about: values.profession
+          about: values.about
         })
       })
       .then(res => {
