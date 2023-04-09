@@ -13,12 +13,14 @@ import {
   formValidators,
   editButton,
   addButton,
+  avatarButton,
   profileInfoSelectors,
   cardSelector,
   containerSelector,
   popupImageSelector,
   popupPlaceSelector,
   popupProfileSelector,
+  popupAvatarSelector,
   popupSubmitDeletionSelector,
   userId
 } from "../utils/constants.js"
@@ -108,6 +110,12 @@ function handleProfileFormSubmit(inputValues) {
   api.patchProfileInfo(inputValues)
 }
 
+function handleAvatarFormSubmit(inputValues) {
+  console.log(inputValues)
+  api.patchProfileAvatar(inputValues);
+  userContent.setUserAvatar(inputValues.link);
+}
+
 //поп-ап профиля
 const profilePopup = new PopupWithForm(popupProfileSelector, handleProfileFormSubmit, formValidators);
 
@@ -120,7 +128,8 @@ const imagePopup = new PopupWithImage(popupImageSelector);
 //поп-ап подтверждения удаления
 const submitDeletionPopup = new PopupWithConfirmation(popupSubmitDeletionSelector, handleSubmitDeletion);
 
-
+//поп-ап обновления аватара
+const avatarPopup = new PopupWithForm(popupAvatarSelector, handleAvatarFormSubmit, formValidators);
 
 //навешивание слушателей на кнопки
 editButton.addEventListener('click', () => {
@@ -133,11 +142,16 @@ addButton.addEventListener('click', () => {
   placePopup.open();
 });
 
+avatarButton.addEventListener('click', () => {
+  avatarPopup.open();
+});
+
 //навешивание слушателей на поп-апы
 imagePopup.setEventListeners();
 profilePopup.setEventListeners();
 placePopup.setEventListeners();
 submitDeletionPopup.setEventListeners();
+avatarPopup.setEventListeners()
 
 //включение валидаций
 const enableValidation = (config) => {
