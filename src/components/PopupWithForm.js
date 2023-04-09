@@ -12,13 +12,12 @@ export default class PopupWithForm extends Popup {
 
   open() {
     super.open()
-    this._submitButton.value = 'Сохранить';
+    this.loading(false)
   }
 
   close() {
     super.close();
     this._form.reset()
-    this._formValidators[this._form.getAttribute('name')].resetValidation();
   }
 
   _getInputValues() {
@@ -33,6 +32,18 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach(input => {
       input.value = values[input.name];
     });
+  }
+
+  loading(isLoading) {
+    if (isLoading) {
+      this._submitButton.value = 'Сохранение...';
+    } else {
+      this._submitButton.value = 'Сохранить';
+    }
+  }
+
+  gotError() {
+    this._submitButton.value = 'Попробуйте ещё раз';
   }
 
   setEventListeners() {

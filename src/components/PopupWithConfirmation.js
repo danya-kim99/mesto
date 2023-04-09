@@ -10,8 +10,8 @@ export default class PopupWithConfirmation extends Popup {
 
   open(card) {
     super.open()
-    this._currentCard = card
-    this._submitButton.value = 'Да';
+    this._currentCard = card;
+    this.loading(false);
   }
 
   loading(isLoading) {
@@ -20,6 +20,10 @@ export default class PopupWithConfirmation extends Popup {
     } else {
       this._submitButton.value = 'Да';
     }
+  }
+
+  gotError() {
+    this._submitButton.value = 'Попробуйте ещё раз';
   }
 
   setEventListeners() {

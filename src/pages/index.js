@@ -35,18 +35,11 @@ const defaultCardList = new Section(
   function renderer(item) {
     const cardElement = createCard(item)
     defaultCardList.addItem(cardElement)
-
-    if (item._id != userId) {
-      const elementTrashButton = cardElement.querySelector('.element__trash');
-      cardElement.removeChild(elementTrashButton)
-    }
   }, containerSelector)
 
 //подгрузка данных из апи
-defaultCardList.loading(true)
 Promise.all([api.getInitialCards(), api.getProfileInfo()])
   .then(([initialCards, profileInfo]) => {
-    defaultCardList.loading(false)
     defaultCardList.renderItems(initialCards);
     userContent.setUserInfo(profileInfo)
     userContent.setUserAvatar(profileInfo.avatar)
@@ -59,22 +52,20 @@ Promise.all([api.getInitialCards(), api.getProfileInfo()])
 //функция генерации карточки
 function createCard(data) {
   const card = new Card(data, cardSelector, handleImageClick, handleTrashClick, function handleLikeClick() {
-    if (this.getLikedState(this.likes)) {
-      api.deleteLike(this._id)
+    if (card.getLikedState(card.getNumberOfLikes())) {
+      api.deleteLike(card.getCardId())
         .then((res) => {
-          this.likes = res.likes;
-          this.changeLikeAmount(res.likes);
-          this.changeLikeState(res.likes);
+          card.changeLikeAmount(res.likes);
+          card.changeLikeState(res.likes);
         })
         .catch((err) => {
           console.log(err);
         })
     } else {
-      api.putLike(this._id)
+      api.putLike(card.getCardId())
         .then((res) => {
-          this.likes = res.likes;
-          this.changeLikeAmount(res.likes);
-          this.changeLikeState(res.likes);
+          card.changeLikeAmount(res.likes);
+          card.changeLikeState(res.likes);
         })
         .catch((err) => {
           console.log(err);
@@ -97,12 +88,11 @@ function handleSubmitDeletion(card) {
   submitDeletionPopup.loading(true);
   api.deleteCard(card.id)
     .then(() => {
-      card.remove()
+      defaultCardList.removeItem(card);
       submitDeletionPopup.close();
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      submitDeletionPopup.loading(false);
+    .catch((err) => {
+      console.log(err)
       submitDeletionPopup.gotError();
     })
 }
@@ -115,9 +105,8 @@ function handlePlaceFormSubmit(inputValues) {
       defaultCardList.addItem(cardElement);
       placePopup.close();
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      placePopup.loading(false);
+    .catch((err) => {
+      console.log(err)
       placePopup.gotError();
     })
 }
@@ -125,13 +114,12 @@ function handlePlaceFormSubmit(inputValues) {
 function handleProfileFormSubmit(inputValues) {
   profilePopup.loading(true);
   api.patchProfileInfo(inputValues)
-    .then(() => {
-      userContent.setUserInfo(inputValues);
+    .then((res) => {
+      userContent.setUserInfo({name: res.name, about: res.about});
       profilePopup.close();
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      profilePopup.loading(false);
+    .catch((err) => {
+      console.log(err)
       profilePopup.gotError();
     })
 }
@@ -139,13 +127,13 @@ function handleProfileFormSubmit(inputValues) {
 function handleAvatarFormSubmit(inputValues) {
   avatarPopup.loading(true);
   api.patchProfileAvatar(inputValues)
-    .then(() => {
-      userContent.setUserAvatar(inputValues.link);
+    .then((res) => {
+      console.log(res)
+      userContent.setUserAvatar(res.avatar);
       avatarPopup.close();
     })
-    .catch((err) => console.log(err))
-    .finally(() => {
-      avatarPopup.loading(false);
+    .catch((err) => {
+      console.log(err)
       avatarPopup.gotError();
     })
 }
@@ -169,14 +157,17 @@ const avatarPopup = new PopupWithForm(popupAvatarSelector, handleAvatarFormSubmi
 editButton.addEventListener('click', () => {
   const currentValues = userContent.getUserInfo();
   profilePopup.setInputValues(currentValues);
+  formValidators['popup__form_type_profile'].resetValidation()
   profilePopup.open();
 });
 
 addButton.addEventListener('click', () => {
+  formValidators['popup__form_type_place'].resetValidation()
   placePopup.open();
 });
 
 avatarButton.addEventListener('click', () => {
+  formValidators['popup__form_type_avatar'].resetValidation()
   avatarPopup.open();
 });
 

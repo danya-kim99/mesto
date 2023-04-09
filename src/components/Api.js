@@ -4,6 +4,13 @@ export default class Api {
     this._token = options.token
   }
 
+  _getResponseData(res, errorText) {
+    if (!res.ok) {
+      return Promise.reject(`${errorText} Код ошибки: ${res.status}`);
+    }
+    return res.json();
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
         method: 'GET',
@@ -12,10 +19,7 @@ export default class Api {
         }
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Не удалось загрузить информацию. Код ошибки: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось загрузить информацию.')
       });
   }
 
@@ -32,10 +36,7 @@ export default class Api {
         })
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Не удалось добавить карточку. Код ошибки: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось добавить карточку.')
       });
   }
 
@@ -47,10 +48,7 @@ export default class Api {
         }
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Не удалось удалить карточку. Код ошибки: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось удалить карточку.')
       });;
   }
 
@@ -62,10 +60,7 @@ export default class Api {
         }
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось поставить лайк.')
       });;
   }
 
@@ -77,10 +72,7 @@ export default class Api {
         }
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось удалить лайк.')
       });
   }
 
@@ -92,10 +84,7 @@ export default class Api {
         }
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Не удалось получить информацию о профиле. Код ошибки: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось получить информацию о профиле.')
       });
   }
 
@@ -112,10 +101,7 @@ export default class Api {
         })
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Не удалось обновить информацию профиля. Код ошибки: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось обновить информацию профиля.')
       });
   }
 
@@ -131,10 +117,7 @@ export default class Api {
         })
       })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Не удалось обновить информацию профиля. Код ошибки: ${res.status}`);
+        return this._getResponseData(res, 'Не удалось обновить аватар.')
       });
   }
 }
