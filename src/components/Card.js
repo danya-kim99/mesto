@@ -45,7 +45,7 @@ export default class Card {
   }
 
   removeCard() {
-    console.log('sd')
+    this._element.remove()
   }
 
   changeLikeAmount(likes) {
@@ -84,7 +84,7 @@ export default class Card {
     });
 
     this._elementTrashButton.addEventListener('click', () => {
-      this._handleTrashClick(this._element)
+      this._handleTrashClick(this)
     });
 
     this._elementImage.addEventListener('click', () => {

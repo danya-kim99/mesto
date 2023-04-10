@@ -51,50 +51,53 @@ Promise.all([api.getInitialCards(), api.getProfileInfo()])
 
 //функция генерации карточки
 function createCard(data) {
-  const card = new Card(data, userContent.getUserId(), cardSelector, handleImageClick, handleTrashClick, function handleLikeClick() {
-    if (card.getLikedState(card.getNumberOfLikes())) {
-      api.deleteLike(card.getCardId())
-        .then((res) => {
-          card.changeLikeAmount(res.likes);
-          card.changeLikeState(res.likes);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    } else {
-      api.putLike(card.getCardId())
-        .then((res) => {
-          card.changeLikeAmount(res.likes);
-          card.changeLikeState(res.likes);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    }
-  });
+  const card = new Card(
+    data,
+    userContent.getUserId(),
+    cardSelector,
+    handleImageClick,
+    function handleTrashClick(card) {
+      submitDeletionPopup.open();
+      submitDeletionPopup.setSubmitAction(() => {
+        submitDeletionPopup.loading(true);
+        api.deleteCard(card.getCardId())
+          .then(() => {
+            card.removeCard();
+            submitDeletionPopup.close();
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+          .finally(() => submitDeletionPopup.loading(false))
+      })
+    },
+    function handleLikeClick() {
+      if (card.getLikedState(card.getNumberOfLikes())) {
+        api.deleteLike(card.getCardId())
+          .then((res) => {
+            card.changeLikeAmount(res.likes);
+            card.changeLikeState(res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      } else {
+        api.putLike(card.getCardId())
+          .then((res) => {
+            card.changeLikeAmount(res.likes);
+            card.changeLikeState(res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    });
   return card.createCard();
 }
 
 //хендлеры для кнопок
 function handleImageClick(name, image) {
   imagePopup.open(name, image);
-}
-
-function handleTrashClick(card) {
-  submitDeletionPopup.open(card)
-}
-
-function handleSubmitDeletion(card) {
-  submitDeletionPopup.loading(true);
-  api.deleteCard(card.id)
-    .then(() => {
-      card.remove();
-      submitDeletionPopup.close();
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-    .finally(() => submitDeletionPopup.loading(false))
 }
 
 function handlePlaceFormSubmit(inputValues) {
@@ -115,7 +118,10 @@ function handleProfileFormSubmit(inputValues) {
   profilePopup.loading(true);
   api.patchProfileInfo(inputValues)
     .then((res) => {
-      userContent.setUserInfo({name: res.name, about: res.about});
+      userContent.setUserInfo({
+        name: res.name,
+        about: res.about
+      });
       profilePopup.close();
     })
     .catch((err) => {
@@ -147,7 +153,7 @@ const placePopup = new PopupWithForm(popupPlaceSelector, handlePlaceFormSubmit, 
 const imagePopup = new PopupWithImage(popupImageSelector);
 
 //поп-ап подтверждения удаления
-const submitDeletionPopup = new PopupWithConfirmation(popupSubmitDeletionSelector, handleSubmitDeletion);
+const submitDeletionPopup = new PopupWithConfirmation(popupSubmitDeletionSelector);
 
 //поп-ап обновления аватара
 const avatarPopup = new PopupWithForm(popupAvatarSelector, handleAvatarFormSubmit, formValidators);
