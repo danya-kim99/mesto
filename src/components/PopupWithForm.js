@@ -35,15 +35,11 @@ export default class PopupWithForm extends Popup {
   }
 
   loading(isLoading) {
-    if (isLoading) {
-      this._submitButton.value = 'Сохранение...';
-    } else {
-      this._submitButton.value = 'Сохранить';
-    }
-  }
-
-  gotError() {
-    this._submitButton.value = 'Попробуйте ещё раз';
+    !isLoading && (this._popup.classList.contains('popup_type_profile') || this._popup.classList.contains('popup_type_avatar'))
+    ? this._submitButton.value = 'Сохранить'
+    : !isLoading && this._popup.classList.contains('popup_type_place')
+    ? this._submitButton.value = 'Создать'
+    : this._submitButton.value = 'Сохранение...'
   }
 
   setEventListeners() {

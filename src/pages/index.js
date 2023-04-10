@@ -21,8 +21,7 @@ import {
   popupPlaceSelector,
   popupProfileSelector,
   popupAvatarSelector,
-  popupSubmitDeletionSelector,
-  userId
+  popupSubmitDeletionSelector
 } from "../utils/constants.js"
 //api
 const api = new Api(apiOptions)
@@ -40,6 +39,7 @@ const defaultCardList = new Section(
 //подгрузка данных из апи
 Promise.all([api.getInitialCards(), api.getProfileInfo()])
   .then(([initialCards, profileInfo]) => {
+    userContent.setUserId(profileInfo._id);
     defaultCardList.renderItems(initialCards);
     userContent.setUserInfo(profileInfo)
     userContent.setUserAvatar(profileInfo.avatar)
@@ -51,7 +51,7 @@ Promise.all([api.getInitialCards(), api.getProfileInfo()])
 
 //функция генерации карточки
 function createCard(data) {
-  const card = new Card(data, cardSelector, handleImageClick, handleTrashClick, function handleLikeClick() {
+  const card = new Card(data, userContent.getUserId(), cardSelector, handleImageClick, handleTrashClick, function handleLikeClick() {
     if (card.getLikedState(card.getNumberOfLikes())) {
       api.deleteLike(card.getCardId())
         .then((res) => {
@@ -88,13 +88,13 @@ function handleSubmitDeletion(card) {
   submitDeletionPopup.loading(true);
   api.deleteCard(card.id)
     .then(() => {
-      defaultCardList.removeItem(card);
+      card.remove();
       submitDeletionPopup.close();
     })
     .catch((err) => {
       console.log(err)
-      submitDeletionPopup.gotError();
     })
+    .finally(() => submitDeletionPopup.loading(false))
 }
 
 function handlePlaceFormSubmit(inputValues) {
@@ -107,8 +107,8 @@ function handlePlaceFormSubmit(inputValues) {
     })
     .catch((err) => {
       console.log(err)
-      placePopup.gotError();
     })
+    .finally(() => placePopup.loading(false))
 }
 
 function handleProfileFormSubmit(inputValues) {
@@ -120,22 +120,21 @@ function handleProfileFormSubmit(inputValues) {
     })
     .catch((err) => {
       console.log(err)
-      profilePopup.gotError();
     })
+    .finally(() => profilePopup.loading(false))
 }
 
 function handleAvatarFormSubmit(inputValues) {
   avatarPopup.loading(true);
   api.patchProfileAvatar(inputValues)
     .then((res) => {
-      console.log(res)
       userContent.setUserAvatar(res.avatar);
       avatarPopup.close();
     })
     .catch((err) => {
       console.log(err)
-      avatarPopup.gotError();
     })
+    .finally(() => avatarPopup.loading(false))
 }
 
 //поп-ап профиля

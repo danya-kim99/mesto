@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, cardSelector, handleImageClick, handleTrashClick, handleLikeClick) {
+  constructor(data, userId, cardSelector, handleImageClick, handleTrashClick, handleLikeClick) {
     this._name = data.name;
     this._image = data.link;
     this._id = data._id;
@@ -16,7 +16,7 @@ export default class Card {
     this._elementImage = this._element.querySelector('.element__image');
     this._elementName = this._element.querySelector('.element__title');
     this._elementId = this._element.id;
-    this._userId = '8a45fb2227e9e125cf962528';
+    this._userId = userId;
   }
 
   _getTemplate() {
@@ -42,6 +42,10 @@ export default class Card {
     this.changeLikeState(this._likes);
 
     return this._element
+  }
+
+  removeCard() {
+    console.log('sd')
   }
 
   changeLikeAmount(likes) {

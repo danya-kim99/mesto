@@ -22,10 +22,6 @@ export default class PopupWithConfirmation extends Popup {
     }
   }
 
-  gotError() {
-    this._submitButton.value = 'Попробуйте ещё раз';
-  }
-
   setEventListeners() {
     super.setEventListeners()
     this._popupContainer.addEventListener('submit', (evt) => {
