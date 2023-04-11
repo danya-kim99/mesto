@@ -144,10 +144,10 @@ function handleAvatarFormSubmit(inputValues) {
 }
 
 //поп-ап профиля
-const profilePopup = new PopupWithForm(popupProfileSelector, handleProfileFormSubmit, formValidators);
+const profilePopup = new PopupWithForm(popupProfileSelector, handleProfileFormSubmit, formValidators, 'Сохранить');
 
 //поп-ап добавления места
-const placePopup = new PopupWithForm(popupPlaceSelector, handlePlaceFormSubmit, formValidators);
+const placePopup = new PopupWithForm(popupPlaceSelector, handlePlaceFormSubmit, formValidators, 'Создать');
 
 //поп-ап картинки
 const imagePopup = new PopupWithImage(popupImageSelector);
@@ -156,7 +156,7 @@ const imagePopup = new PopupWithImage(popupImageSelector);
 const submitDeletionPopup = new PopupWithConfirmation(popupSubmitDeletionSelector);
 
 //поп-ап обновления аватара
-const avatarPopup = new PopupWithForm(popupAvatarSelector, handleAvatarFormSubmit, formValidators);
+const avatarPopup = new PopupWithForm(popupAvatarSelector, handleAvatarFormSubmit, formValidators, 'Сохранить');
 
 //навешивание слушателей на кнопки
 editButton.addEventListener('click', () => {
